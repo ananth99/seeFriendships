@@ -5,7 +5,7 @@ class SessionController < ApplicationController
     user = User.find_by_uid(auth['uid'])  
     if user.blank?
       user = User.create_user(auth)
-      @friends = user.get_friends(@graph)
+      @friends = user.get_friends
       user.save_friends(@friends)
     end
     session['user_id'] = user.uid
