@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <% if current_user %>
+    Welcome <%= current_user.name %>!
+    <%= link_to "Logout", signout_path %>
+  <% else %>
+    <%= link_to "Login with Facebook", '/auth/facebook' %>
+  <% end %>
+  <% if current_user %>
+    <%= form_tag("/search",method: "get") do %>
+      <%= select_tag("friends", options_for_select(@friends), {multiple: true, size: 10}) %>
+      <br/>
+      <%= button_tag("search") %>
+    <% end %>
+
+    <% if !@results.blank? %>
+      <h3> Photos </h3>
+      <% @results.each do |result| %>
+        <%= image_tag(result['images'].first['source']) %>
+      <% end %>
+    <% end %>
+  <% end %>
+</body>
+</html> 
